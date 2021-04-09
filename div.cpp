@@ -43,25 +43,25 @@ public:
     }
     bool operator==(date const &a)
     {
-        if (a.Year == Year && a.Month == Month && a.Day == Day)
+        if (a.Year == Year || a.Month == Month || a.Day == Day)
             return 1;
         return 0;
     }
     void operator++(int)
     {
         Day++;
-        if (Day > 28)
+        if (Day > 29)
         {
             if (Month == 2)
             {
-                if (!((Year % 100 != 0 && Year % 4 == 0) || (Year % 400 == 0)))
+                if (!(((Year % 100 != 0) && (Year % 4 == 0)) || (Year % 400 == 0)))
                 {
                     Month++;
                     Day = 1;
                 }
             }
         }
-        else if (Day == 29)
+        else if (Day == 28)
         {
             if (Month == 2)
             {
@@ -69,17 +69,19 @@ public:
                 Day = 1;
             }
         }
-        else if (Day == 30)
-            if (Month == 4 && Month == 6 && Month == 9 && Month == 9)
+        else if (Day == 31)
+        {
+            if (Month == 4 || Month == 6 || Month == 9 || Month == 9)
             {
                 Month++;
                 Day = 1;
             }
-            else if (Day == 31)
-            {
-                Month++;
-                Day = 1;
-            }
+        }
+        if (Day == 32)
+        {
+            Month++;
+            Day = 1;
+        }
         if (Month > 12)
         {
             Month = 1;
@@ -94,20 +96,25 @@ public:
             Month--;
             if (Month == 2)
             {
-                if (!((Year % 100 != 0 && Year % 4 == 0) || (Year % 400 == 0)))
+                if (!(((Year % 100 != 0) && (Year % 4 == 0)) || (Year % 400 == 0)))
                 {
                     Day = 28;
                 }
                 else
                     Day = 29;
             }
-            else if (Month == 1 && Month == 3 && Month == 5 && Month == 7 && Month == 8 && Month == 10 && Month == 12)
+            else if (Month == 1 || Month == 3 || Month == 5 || Month == 7 || Month == 8 || Month == 10 || Month == 12)
             {
 
                 Day = 31;
             }
+            else if (Month != 0)
+            {
+                Day = 30;
+            }
             else
             {
+                Day = 31;
                 Month = 12;
                 Year--;
             }
@@ -154,7 +161,7 @@ int main()
     cout << "The d3 date Initially:" << d3.Day << d3.Month << d3.Year;
     d3++; //Increment to next Day date, if required it may adjust month and year
     cout << "The d3 date After Increment:" << d3.Day << d3.Month << d3.Year;
-    cout << "The d2 date Initially:" << d3.Day << d3.Month << d3.Year;
+    cout << "The d2 date Initially:" << d2.Day << d2.Month << d2.Year;
     d2--; // decrement to previous Day date, if required it may adjust month and year
     cout << "The d2 date After decrement:" << d2.Day << d2.Month << d2.Year;
     return 0;
