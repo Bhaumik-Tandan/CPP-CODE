@@ -1,8 +1,11 @@
 {
     "files.associations": {
+        "*.py": "python",
         "ostream": "cpp",
         "iostream": "cpp",
         "random": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "vector": "cpp",
+        "xstring": "cpp"
     }
 }
